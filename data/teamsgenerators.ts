@@ -1,7 +1,7 @@
 import { Economy } from "../models/Economy";
 import { Player } from "../models/Player";
 import { Team } from "../models/Team";
-import { generateTeamRoster } from "./players";
+import { generateTeamRoster } from "./playersgeneration";
 
 const gremioPlayers: Player[] = generateTeamRoster("Gremio");
 const interPlayers: Player[] = generateTeamRoster("Internacional");

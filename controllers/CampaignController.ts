@@ -1,5 +1,5 @@
 import { UIController } from "./UIController";
-import { teams } from "../data/teams";
+import { teams } from "../data/teamsgenerators";
 import { Team } from "../models/Team";
 import { MatchController, MatchResult } from "./MatchController";
 import { CampaignSaveService, SavedCampaign } from "../services/CampaignSaveService";

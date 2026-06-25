@@ -1,4 +1,4 @@
-import { PlayerGenerator } from "../util/PlayerGenerator";
+import { PlayerGenerator } from "../util/PlayerInfos";
 import { Person } from "./Person";
 import { Position } from "./Position";
 

@@ -27,7 +27,7 @@ Abaixo está a estrutura de modelagem das classes e os seus relacionamentos na P
   - [Economy.ts](file:///c:/Users/Redes/Desktop/soccer/models/Economy.ts) - Modelo financeiro das equipes.
   - [Team.ts](file:///c:/Users/Redes/Desktop/soccer/models/Team.ts) - Entidade de equipe de futebol.
 - **Utilitários e Serviços:**
-  - [PlayerGenerator.ts](file:///c:/Users/Redes/Desktop/soccer/util/PlayerGenerator.ts) - Gerador de atributos aleatórios para inicializar elencos.
+  - [PlayerInfos.ts](file:///c:/Users/Redes/Desktop/soccer/util/PlayerInfos.ts) - Gerador de atributos aleatórios para inicializar elencos.
   - [CampaignSaveService.ts](file:///c:/Users/Redes/Desktop/soccer/services/CampaignSaveService.ts) - Serviço de persistência física dos saves.
 - **Controladores (Controllers):**
   - [UIController.ts](file:///c:/Users/Redes/Desktop/soccer/controllers/UIController.ts)
@@ -104,7 +104,7 @@ A **Composição** e a **Associação** definem relacionamentos entre classes on
 Além dos pilares clássicos de POO, o projeto segue práticas modernas de engenharia de software:
 
 1. **Princípio da Responsabilidade Única (SRP - Single Responsibility Principle)**:
-   - A geração de atributos randômicos foi removida de classes genéricas de utilidades (antiga `Util` em `PlayersInfos.ts`) e movida para uma classe de finalidade única descritiva: [PlayerGenerator.ts](file:///c:/Users/Redes/Desktop/soccer/util/PlayerGenerator.ts).
+   - A geração de atributos randômicos foi removida de classes genéricas de utilidades (antiga `Util` em `PlayersInfos.ts`) e movida para uma classe de finalidade única descritiva em [PlayerInfos.ts](file:///c:/Users/Redes/Desktop/soccer/util/PlayerInfos.ts).
    - O controle de exibição de lances e interações do console está isolado no [UIController.ts](file:///c:/Users/Redes/Desktop/soccer/controllers/UIController.ts).
 2. **Resolução de Dependências Circulares (Desacoplamento)**:
    - Anteriormente, `Player` importava `Person` e `Person` importava `Position` de dentro de `Player.ts`. Ao extrair o enum para **[Position.ts](file:///c:/Users/Redes/Desktop/soccer/models/Position.ts)**, quebramos esse acoplamento e organizamos o grafo de dependências do compilador de forma linear.

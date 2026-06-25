@@ -1,6 +1,6 @@
 import { Player } from "../models/Player";
 import { Position } from "../models/Position";
-import { PlayerGenerator } from "../util/PlayerGenerator";
+import { PlayerGenerator } from "../util/PlayerInfos";
 
 export function generateTeamRoster(teamName: string): Player[] {
   const roster: Player[] = [];
