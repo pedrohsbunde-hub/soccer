@@ -5,7 +5,7 @@ import { PlayerGenerator } from "../util/PlayerInfos";
 export function generateTeamRoster(teamName: string): Player[] {
   const roster: Player[] = [];
 
-  // 2 Goalkeepers (GOL)
+  
   for (let i = 0; i < 2; i++) {
     roster.push(
       new Player(
@@ -20,7 +20,7 @@ export function generateTeamRoster(teamName: string): Player[] {
     );
   }
 
-  // 6 Defenders (DEF)
+  
   for (let i = 0; i < 6; i++) {
     roster.push(
       new Player(
@@ -35,7 +35,7 @@ export function generateTeamRoster(teamName: string): Player[] {
     );
   }
 
-  // 6 Midfielders (MEI)
+  
   for (let i = 0; i < 6; i++) {
     roster.push(
       new Player(
@@ -50,7 +50,7 @@ export function generateTeamRoster(teamName: string): Player[] {
     );
   }
 
-  // 6 Attackers (ATA)
+  
   for (let i = 0; i < 6; i++) {
     roster.push(
       new Player(

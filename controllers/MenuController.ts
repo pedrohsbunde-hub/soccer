@@ -1,22 +1,17 @@
 import { UIController } from "./UIController";
 import { CampaignSaveService } from "../services/CampaignSaveService";
 
-/**
- * Controller do menu principal do jogo.
- * Gerencia entrada do usuário para nova campanha, carga de save e instruções.
- */
+
 export class MenuController {
-  /** Interface única de I/O do terminal para toda a sessão. */
+  
   private ui: UIController;
 
-  /** Inicializa o menu principal e sua interface de entrada. */
+  
   constructor() {
     this.ui = new UIController();
   }
 
-  /**
-   * Loop principal do menu inicial do jogo.
-   */
+  
   async start(): Promise<void> {
     this.ui.clear();
     this.ui.printTitle("FOOTBALL MANAGER 2026");
@@ -55,9 +50,7 @@ export class MenuController {
     }
   }
 
-  /**
-   * Fluxo de criação de nova campanha.
-   */
+  
   private async newCampaign(): Promise<void> {
     this.ui.clear();
     this.ui.printTitle("NOVA CAMPANHA");
@@ -78,9 +71,7 @@ export class MenuController {
     await campaign.start();
   }
 
-  /**
-   * Fluxo de carregamento de campanha salva em disco.
-   */
+  
   private async loadCampaign(): Promise<void> {
     this.ui.clear();
     this.ui.printTitle("CARREGAR CAMPANHA");
@@ -112,9 +103,7 @@ export class MenuController {
     await campaign.startFromSave(savedCampaign);
   }
 
-  /**
-   * Exibe o texto de instruções gerais do jogo.
-   */
+  
   private async showInstructions(): Promise<void> {
     this.ui.clear();
     this.ui.printTitle("INSTRUÇÕES DO JOGO");

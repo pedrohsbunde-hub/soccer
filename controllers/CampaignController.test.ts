@@ -304,7 +304,7 @@ describe("CampaignController Class", () => {
         return 5;
       }
       if (title === "") {
-        return 1; // Salvar progresso
+        return 1; 
       }
       return 1;
     });

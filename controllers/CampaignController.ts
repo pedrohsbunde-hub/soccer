@@ -5,9 +5,7 @@ import { MatchController, MatchResult } from "./MatchController";
 import { CampaignSaveService, SavedCampaign } from "../services/CampaignSaveService";
 import { LineupController } from "./LineupController";
 
-/**
- * Estrutura de classificação por time no campeonato.
- */
+
 interface TeamStanding {
   team: Team;
   played: number;
@@ -19,12 +17,9 @@ interface TeamStanding {
   points: number;
 }
 
-/**
- * Controller principal da campanha.
- * Responsável por fluxo de menu da campanha, partidas, tabela e persistência.
- */
+
 export class CampaignController {
-  /** Dependências e estado principal da campanha. */
+  
   private ui: UIController;
   private matchController: MatchController;
   private lineupController: LineupController;
@@ -35,9 +30,7 @@ export class CampaignController {
   private fixtures: Team[] = [];
   private standings: Map<string, TeamStanding> = new Map();
 
-  /**
-   * Inicializa a campanha com nome do técnico e interface opcional compartilhada.
-   */
+  
   constructor(coachName: string, ui?: UIController) {
     this.ui = ui ?? new UIController();
     this.matchController = new MatchController();
@@ -45,10 +38,7 @@ export class CampaignController {
     this.coachName = coachName;
   }
 
-  /**
-   * Fluxo de início de nova campanha:
-   * seleção de time, validação e entrada no loop do jogo.
-   */
+  
   async start(): Promise<void> {
     this.ui.clear();
     this.ui.printTitle("SELEÇÃO DE TIME");
@@ -78,10 +68,7 @@ export class CampaignController {
     await this.gameLoop();
   }
 
-  /**
-   * Fluxo de carregamento de campanha salva:
-   * reidrata times, restaura tabela/rodada e retoma o loop.
-   */
+  
   async startFromSave(savedCampaign: SavedCampaign): Promise<void> {
     CampaignSaveService.applyTeamsSnapshot(savedCampaign.teams, teams);
 
@@ -131,9 +118,7 @@ export class CampaignController {
     await this.gameLoop();
   }
 
-  /**
-   * Loop principal do menu da campanha.
-   */
+  
   private async gameLoop(): Promise<void> {
     let running = true;
 
@@ -173,9 +158,7 @@ export class CampaignController {
     }
   }
 
-  /**
-   * Exibe o status resumido da campanha no topo da tela.
-   */
+  
   private displayStatus(): void {
     if (!this.selectedTeam) return;
 
@@ -192,9 +175,7 @@ export class CampaignController {
     }
   }
 
-  /**
-   * Lista o elenco agrupado por posição.
-   */
+  
   private async showSquad(): Promise<void> {
     this.ui.clear();
 
@@ -221,10 +202,7 @@ export class CampaignController {
     await this.ui.pause();
   }
 
-  /**
-   * Executa uma partida da rodada:
-   * treino pré-jogo, simulação, pós-jogo e atualização da classificação.
-   */
+  
   private async playMatch(): Promise<void> {
     if (!this.selectedTeam) return;
 
@@ -290,9 +268,7 @@ export class CampaignController {
     await this.ui.pause();
   }
 
-  /**
-   * Placeholder do mercado de transferências.
-   */
+  
   private async transferMarket(): Promise<void> {
     this.ui.clear();
     this.ui.printTitle("MERCADO DE TRANSFERÊNCIAS");
@@ -301,9 +277,7 @@ export class CampaignController {
     await this.ui.pause();
   }
 
-  /**
-   * Exibe informações detalhadas do time e um recorte da tabela.
-   */
+  
   private async teamInfo(): Promise<void> {
     this.ui.clear();
 
@@ -340,9 +314,7 @@ export class CampaignController {
     await this.ui.pause();
   }
 
-  /**
-   * Inicializa estrutura de campeonato para nova temporada/campanha.
-   */
+  
   private initializeChampionship(): void {
     if (!this.selectedTeam) return;
 
@@ -366,10 +338,7 @@ export class CampaignController {
     }
   }
 
-  /**
-   * Oferece treino opcional antes da partida.
-   * O treino consome economia e aumenta overalls de forma randômica.
-   */
+  
   private async offerPreMatchTraining(): Promise<void> {
     if (!this.selectedTeam) return;
 
@@ -400,9 +369,7 @@ export class CampaignController {
     );
   }
 
-  /**
-   * Simula as outras partidas da rodada para manter a tabela coerente.
-   */
+  
   private playOtherMatchesOfRound(userOpponent: Team): void {
     if (!this.selectedTeam) return;
 
@@ -432,9 +399,7 @@ export class CampaignController {
     }
   }
 
-  /**
-   * Registra placar de uma partida e atualiza estatísticas dos dois times.
-   */
+  
   private registerMatchResult(homeTeam: Team, awayTeam: Team, homeGoals: number, awayGoals: number): void {
     const homeStanding = this.standings.get(homeTeam.name);
     const awayStanding = this.standings.get(awayTeam.name);
@@ -471,9 +436,7 @@ export class CampaignController {
     awayStanding.points += 1;
   }
 
-  /**
-   * Ordena a classificação por pontos, saldo de gols e gols pró.
-   */
+  
   private getSortedStandings(): TeamStanding[] {
     return Array.from(this.standings.values()).sort((a, b) => {
       if (b.points !== a.points) {
@@ -491,9 +454,7 @@ export class CampaignController {
     });
   }
 
-  /**
-   * Encerra temporada atual, exibe classificação final e inicia nova temporada.
-   */
+  
   private async finishSeason(): Promise<void> {
     const sorted = this.getSortedStandings();
     const champion = sorted[0];
@@ -518,9 +479,7 @@ export class CampaignController {
     await this.ui.pause();
   }
 
-  /**
-   * Menu de saída da campanha com opção de salvar ou sair sem salvar.
-   */
+  
   private async saveAndExit(): Promise<void> {
     this.ui.clear();
     this.ui.printTitle("SALVAR E SAIR");
@@ -541,9 +500,7 @@ export class CampaignController {
     await this.ui.pause();
   }
 
-  /**
-   * Monta o payload serializável com o estado atual da campanha.
-   */
+  
   private buildSavePayload(): SavedCampaign {
     if (!this.selectedTeam) {
       throw new Error("Não é possível salvar sem time selecionado.");

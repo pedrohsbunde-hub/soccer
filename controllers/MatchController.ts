@@ -24,7 +24,7 @@ export interface MatchResult {
 }
 
 export class MatchController {
-  // Constantes de Jogo (Sem números mágicos)
+  
   public static readonly STAMINA_LOSS_PER_MATCH = 15;
   public static readonly STAMINA_RECOVERY_PER_MATCH = 20;
   public static readonly STAMINA_LOSS_PER_TRAINING = 15;
@@ -155,7 +155,7 @@ export class MatchController {
   public applyTraining(team: Team): { invested: number; averageIncreasePercent: number } {
     const cost = this.getTrainingCost(team);
 
-    // CQS: Verificar saldo antes de debitar
+    
     if (team.economy.balance < cost) {
       return { invested: 0, averageIncreasePercent: 0 };
     }
