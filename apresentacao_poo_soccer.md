@@ -1,7 +1,5 @@
 # Guia de Apresentação: POO no Simulador de Futebol (Football Manager 2026)
 
-Este guia descreve detalhadamente a arquitetura do projeto e como os quatro pilares fundamentais da **Programação Orientada a Objetos (POO)** e os princípios do **Clean Code / SOLID** foram aplicados no desenvolvimento deste jogo. Você pode usar este material como roteiro para a sua apresentação ou como material de estudo.
-
 ---
 
 ## 🏗️ 1. Arquitetura Geral do Projeto
