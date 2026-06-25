@@ -19,7 +19,7 @@ export class MenuController {
    */
   async start(): Promise<void> {
     this.ui.clear();
-    this.ui.printTitle("🏆 FOOTBALL MANAGER 2026 🏆");
+    this.ui.printTitle("FOOTBALL MANAGER 2026");
     this.ui.print("Bem-vindo ao melhor simulador de futebol!");
     this.ui.print("Gerencie seu time, compre/venda jogadores e vença a campanha!\n");
 
@@ -48,7 +48,7 @@ export class MenuController {
           break;
         case 4:
           running = false;
-          this.ui.print("\n👋 Obrigado por jogar! Até logo!\n");
+          this.ui.print("\nObrigado por jogar! Até logo!\n");
           this.ui.close();
           break;
       }
@@ -65,7 +65,7 @@ export class MenuController {
     const coachName = await this.ui.prompt("Digite o nome do seu técnico: ");
 
     if (!coachName) {
-      this.ui.print("❌ Nome inválido!");
+      this.ui.print("Nome inválido!");
       await this.ui.pause();
       return;
     }
@@ -88,7 +88,7 @@ export class MenuController {
     const savedCampaign = await CampaignSaveService.loadCampaign();
 
     if (!savedCampaign) {
-      this.ui.print("❌ Nenhuma campanha salva encontrada.");
+      this.ui.print("Nenhuma campanha salva encontrada.");
       await this.ui.pause();
       return;
     }
@@ -120,27 +120,27 @@ export class MenuController {
     this.ui.printTitle("INSTRUÇÕES DO JOGO");
 
     this.ui.print(`
-📌 OBJETIVO:
+OBJETIVO:
 Gerencie um time de futebol por uma temporada completa e tente
 vencer o campeonato!
 
-💰 ECONOMIA:
+ECONOMIA:
 - Comece com saldo inicial para o seu time
 - Ganhe dinheiro ao vencer jogos
 - Gaste dinheiro comprando/vendendo jogadores
 - Invista em melhorias do estádio
 
-👥 ELENCO:
+ELENCO:
 - Cada time tem 23 jogadores
 - Posições: Goleiro, Defesa, Meio-campo, Ataque
 - Cada jogador tem um valor (overall) que afeta o desempenho
 
-⚽ PARTIDAS:
+PARTIDAS:
 - Jogue contra os 7 times rivais
 - Resultado depende da qualidade do seu elenco
 - Ganhe pontos (vitória=3, empate=1, derrota=0)
 
-🎯 MERCADO:
+MERCADO:
 - Compre jogadores melhores se tiver saldo
 - Venda jogadores para arrecadar fundos
 - Negocie para montar o melhor elenco possível

@@ -94,7 +94,7 @@ export class LineupController {
         const index = parseInt(answer, 10) - 1;
 
         if (isNaN(index) || index < 0 || index >= availablePlayers.length) {
-          ui.print("❌ Opção inválida. Tente novamente.");
+          ui.print("Opção inválida. Tente novamente.");
           continue;
         }
 

@@ -44,9 +44,12 @@ export class UIController {
       const choice = parseInt(answer);
 
       if (isNaN(choice) || choice < 1 || choice > options.length) {
-        console.log("❌ Opção inválida! Tente novamente.");
+        console.log("Opção inválida! Tente novamente.");
         continue;
       }
+
+      // Animação ao escolher uma opção do menu
+      await this.showMenuSelectionAnimation();
 
       return choice;
     }
@@ -69,10 +72,120 @@ export class UIController {
   }
 
   /**
-   * Pausa e aguarda Enter
+   * Pausa e aguarda que qualquer tecla seja pressionada, exibindo uma animação de bola girando.
    */
   async pause(): Promise<void> {
-    await this.prompt("\nPressione Enter para continuar...");
+    const isTTY = process.stdin.isTTY;
+    const canUseRaw = typeof process.stdin.setRawMode === "function";
+
+    if (!isTTY || !canUseRaw) {
+      await this.prompt("\nPressione Enter para continuar...");
+      return;
+    }
+
+    return new Promise((resolve) => {
+      const isRaw = process.stdin.isRaw;
+      process.stdin.setRawMode!(true);
+      process.stdin.resume();
+
+      const spinnerFrames = [
+        "⠋",
+        "⠙",
+        "⠹",
+        "⠸",
+        "⠼",
+        "⠴",
+        "⠦",
+        "⠧",
+        "⠇",
+        "⠏"
+      ];
+      let frameIndex = 0;
+
+      process.stdout.write("\n");
+
+      const interval = setInterval(() => {
+        const frame = spinnerFrames[frameIndex % spinnerFrames.length];
+        process.stdout.write(`\r${frame}  Pressione qualquer tecla para continuar...`);
+        frameIndex++;
+      }, 100);
+
+      const onData = (chunk: Buffer) => {
+        const key = chunk.toString();
+        
+        // Captura Ctrl+C para encerrar o processo
+        if (key === "\u0003") {
+          clearInterval(interval);
+          process.stdin.setRawMode!(isRaw);
+          process.stdin.removeListener("data", onData);
+          process.exit(0);
+        }
+
+        clearInterval(interval);
+        process.stdin.setRawMode!(isRaw);
+        process.stdin.removeListener("data", onData);
+        
+        // Limpa a linha atual
+        process.stdout.write(`\r${" ".repeat(60)}\r`);
+        resolve();
+      };
+
+      process.stdin.on("data", onData);
+    });
+  }
+
+  /**
+   * Mostra uma animação curta da bola de futebol ⚽ girando após uma seleção do menu.
+   */
+  async showMenuSelectionAnimation(durationMs: number = 800): Promise<void> {
+    const spinnerFrames = [
+      "⠋",
+      "⠙",
+      "⠹",
+      "⠸",
+      "⠼",
+      "⠴",
+      "⠦",
+      "⠧",
+      "⠇",
+      "⠏"
+    ];
+    const intervalMs = 80;
+    const totalSteps = Math.max(1, durationMs / intervalMs);
+    
+    for (let step = 0; step < totalSteps; step++) {
+      const frame = spinnerFrames[step % spinnerFrames.length];
+      process.stdout.write(`\r${frame}  Carregando escolha... `);
+      await new Promise((resolve) => setTimeout(resolve, intervalMs));
+    }
+    process.stdout.write(`\r${" ".repeat(40)}\r`);
+  }
+
+  /**
+   * Mostra uma animação curta da bola de futebol ⚽ girando durante os lances da partida.
+   */
+  async showMatchEventAnimation(durationMs: number = 600): Promise<void> {
+    const spinnerFrames = [
+      "⠋",
+      "⠙",
+      "⠹",
+      "⠸",
+      "⠼",
+      "⠴",
+      "⠦",
+      "⠧",
+      "⠇",
+      "⠏"
+    ];
+    const intervalMs = 60;
+    const totalSteps = Math.max(1, durationMs / intervalMs);
+    
+    for (let step = 0; step < totalSteps; step++) {
+      const frame = spinnerFrames[step % spinnerFrames.length];
+      process.stdout.write(`\r${frame}  Simulando lance... `);
+      await new Promise((resolve) => setTimeout(resolve, intervalMs));
+    }
+    process.stdout.write(`\r${" ".repeat(40)}\r`);
   }
 
   /**
@@ -107,7 +220,7 @@ export class UIController {
       const completedLength = Math.floor((percent / 100) * barLength);
       const remainingLength = Math.max(0, barLength - completedLength - 1);
       
-      const progressBar = "█".repeat(completedLength) + "⚽" + "░".repeat(remainingLength);
+      const progressBar = "█".repeat(completedLength) + ">" + "░".repeat(remainingLength);
       
       // Exibe: spinner + mensagem + "Carregando" + barra animada + porcentagem
       process.stdout.write(`\r${spinner}  ${message} - Carregando... [${progressBar}] ${percent}% `);
@@ -115,7 +228,7 @@ export class UIController {
     }
     
     // Conclusão com a bola no final
-    process.stdout.write(`\r⚽  ${message} - Pronto! [${"█".repeat(20)}⚽] 100%\n\n`);
+    process.stdout.write(`\r  ${message} - Pronto! [${"█".repeat(20)}] 100%\n\n`);
     await new Promise((resolve) => setTimeout(resolve, 400));
   }
 }

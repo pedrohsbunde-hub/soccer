@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "tsx main.ts",
     "test": "jest"
   },
   "keywords": [],

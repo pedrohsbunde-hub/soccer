@@ -103,14 +103,14 @@ export class MatchController {
 
     let homeGoal = 0;
     let awayGoal = 0;
-    let message = `🤝 Set point empatado! Sem gols.`;
+    let message = `Set point empatado! Sem gols.`;
 
     if (homeRound > awayRound) {
       homeGoal = 1;
-      message = `⚽ Gol do ${homeName}!`;
+      message = `Gol do ${homeName}!`;
     } else if (awayRound > homeRound) {
       awayGoal = 1;
-      message = `⚽ Gol do ${awayName}!`;
+      message = `Gol do ${awayName}!`;
     }
 
     const event: TurnEvent = {

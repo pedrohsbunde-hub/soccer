@@ -92,7 +92,7 @@ export class CampaignController {
     const selectedTeam = teams.find((team) => team.name === savedCampaign.selectedTeamName);
 
     if (!selectedTeam) {
-      this.ui.print("❌ Save inválido: time do usuário não encontrado.");
+      this.ui.print("Save inválido: time do usuário não encontrado.");
       await this.ui.pause();
       return;
     }
@@ -244,7 +244,7 @@ export class CampaignController {
     const userLineup = await this.lineupController.chooseUserLineup(this.ui, this.selectedTeam);
     const opponentLineup = this.lineupController.chooseNpcLineup(opponent);
 
-    this.ui.print("\n📌 Escalações confirmadas:");
+    this.ui.print("\nEscalações confirmadas:");
     this.ui.print(
       `${userLineup.team.name} (${userLineup.formation}) | ATA: ${userLineup.attackOverall} | DEF: ${userLineup.defenseOverall}`
     );
@@ -260,9 +260,10 @@ export class CampaignController {
     this.registerMatchResult(result.homeTeam, result.awayTeam, result.homeGoals, result.awayGoals);
     this.playOtherMatchesOfRound(opponent);
 
-    this.ui.print("\n📋 Resumo da Partida:");
+    this.ui.print("\nResumo da Partida:");
 
     for (const event of result.turnEvents) {
+      await this.ui.showMatchEventAnimation(700);
       this.ui.print(
         `Etapa ${event.turn}: ${event.message} (${event.attackingForce} x ${event.defendingForce})`
       );
@@ -283,7 +284,7 @@ export class CampaignController {
     this.round += 1;
 
     if (this.round > this.fixtures.length) {
-      this.ui.print("\n🏁 Você completou todas as rodadas desta temporada!");
+      this.ui.print("\nVocê completou todas as rodadas desta temporada!");
     }
 
     await this.ui.pause();
@@ -295,7 +296,7 @@ export class CampaignController {
   private async transferMarket(): Promise<void> {
     this.ui.clear();
     this.ui.printTitle("MERCADO DE TRANSFERÊNCIAS");
-    this.ui.print("⚠️  Funcionalidade em desenvolvimento...\n");
+    this.ui.print("Funcionalidade em desenvolvimento...\n");
     this.ui.print("Aqui você poderá comprar e vender jogadores.\n");
     await this.ui.pause();
   }
@@ -310,10 +311,10 @@ export class CampaignController {
 
     this.ui.printTitle(`INFORMAÇÕES - ${this.selectedTeam.name}`);
 
-    this.ui.print(`\n💰 ECONOMIA:`);
+    this.ui.print(`\nECONOMIA:`);
     this.ui.print(`   Saldo: R$ ${this.selectedTeam.economia.saldo.toLocaleString("pt-BR")}`);
 
-    this.ui.print(`\n👥 ELENCO:`);
+    this.ui.print(`\nELENCO:`);
     this.ui.print(`   Total de Jogadores: ${this.selectedTeam.players.length}`);
     this.ui.print(`   Overall de Ataque: ${this.selectedTeam.attackOverall}`);
     this.ui.print(`   Overall de Defesa: ${this.selectedTeam.defenseOverall}`);
@@ -328,7 +329,7 @@ export class CampaignController {
     this.ui.print(`   Overall Médio: ${overallMedio}`);
     this.ui.print(`   Stamina Média: ${staminaMedio}%`);
 
-    this.ui.print("\n🏆 TABELA DO CAMPEONATO (TOP 5):");
+    this.ui.print("\nTABELA DO CAMPEONATO (TOP 5):");
     const topFive = this.getSortedStandings().slice(0, 5);
     topFive.forEach((standing, index) => {
       this.ui.print(
@@ -390,12 +391,12 @@ export class CampaignController {
     const trainingResult = this.matchController.applyTraining(this.selectedTeam);
 
     if (trainingResult.invested === 0) {
-      this.ui.print("❌ Saldo insuficiente para treinar o elenco.");
+      this.ui.print("Saldo insuficiente para treinar o elenco.");
       return;
     }
 
     this.ui.print(
-      `✅ Treino concluído! Investimento: R$ ${trainingResult.invested.toLocaleString("pt-BR")} | Ganho médio: +${trainingResult.averageIncreasePercent.toFixed(1)} de overall`
+      `Treino concluído! Investimento: R$ ${trainingResult.invested.toLocaleString("pt-BR")} | Ganho médio: +${trainingResult.averageIncreasePercent.toFixed(1)} de overall`
     );
   }
 
@@ -501,7 +502,7 @@ export class CampaignController {
     this.ui.printTitle(`FIM DA TEMPORADA ${this.season}`);
 
     if (champion) {
-      this.ui.print(`🏆 Campeão: ${champion.team.name} com ${champion.points} pontos`);
+      this.ui.print(`Campeão: ${champion.team.name} com ${champion.points} pontos`);
     }
 
     this.ui.print("\nClassificação final:");
@@ -531,12 +532,12 @@ export class CampaignController {
       const savePayload = this.buildSavePayload();
       await this.ui.showLoadingScreen("Salvando progresso da campanha...", 1200);
       await CampaignSaveService.saveCampaign(savePayload);
-      this.ui.print(`\n✅ Campanha salva em: ${CampaignSaveService.getSaveFilePath()}`);
+      this.ui.print(`\nCampanha salva em: ${CampaignSaveService.getSaveFilePath()}`);
       await this.ui.pause();
       return;
     }
 
-    this.ui.print("\nℹ️ Saindo sem salvar alterações desta sessão.");
+    this.ui.print("\nSaindo sem salvar alterações desta sessão.");
     await this.ui.pause();
   }
 
