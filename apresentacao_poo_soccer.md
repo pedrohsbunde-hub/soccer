@@ -2,7 +2,7 @@
 
 ---
 
-## 🏗️ 1. Arquitetura Geral do Projeto
+## 1. Arquitetura Geral do Projeto
 
 O sistema adota uma separação clara entre **Modelos de Domínio** (que contêm dados e regras de negócio essenciais) e **Controladores** (que orquestram o fluxo da aplicação e a interação com o usuário).
 
@@ -27,6 +27,9 @@ Abaixo está a estrutura de modelagem das classes e os seus relacionamentos na P
 - **Utilitários e Serviços:**
   - [PlayerInfos.ts](file:///c:/Users/Redes/Desktop/soccer/util/PlayerInfos.ts) - Gerador de atributos aleatórios para inicializar elencos.
   - [CampaignSaveService.ts](file:///c:/Users/Redes/Desktop/soccer/services/CampaignSaveService.ts) - Serviço de persistência física dos saves.
+- **Banco de Dados e Inicializadores (Data):**
+  - [playersgeneration.ts](file:///c:/Users/Redes/Desktop/soccer/data/playersgeneration.ts) - Inicializador de elencos aleatórios por time.
+  - [teamsgenerators.ts](file:///c:/Users/Redes/Desktop/soccer/data/teamsgenerators.ts) - Configuração de times e inicialização da base de dados do campeonato.
 - **Controladores (Controllers):**
   - [UIController.ts](file:///c:/Users/Redes/Desktop/soccer/controllers/UIController.ts)
   - [MenuController.ts](file:///c:/Users/Redes/Desktop/soccer/controllers/MenuController.ts)
@@ -129,7 +132,7 @@ Os controladores implementam as regras de fluxo do jogo e manipulam as instânci
 
 ---
 
-## 🧪 5. Testes Automatizados (Qualidade de Software)
+## 5. Testes Automatizados (Qualidade de Software)
 
 Todo o comportamento crítico do jogo e as regras dos controladores/modelos estão garantidos por testes unitários automatizados com o framework **Jest**:
 
