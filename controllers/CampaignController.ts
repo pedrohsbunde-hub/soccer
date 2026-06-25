@@ -57,7 +57,7 @@ export class CampaignController {
 
     teams.forEach((team, index) => {
       const teamOverall = Math.round((team.attackOverall + team.defenseOverall) / team.players.length);
-      const saldoEmMil = (team.economia.saldo / 1000).toLocaleString("pt-BR", { maximumFractionDigits: 1 });
+      const saldoEmMil = (team.economy.balance / 1000).toLocaleString("pt-BR", { maximumFractionDigits: 1 });
       this.ui.print(
         `${index + 1}. ${team.name} | Saldo: R$ ${saldoEmMil} | Overall: ${teamOverall}`
       );
@@ -181,7 +181,7 @@ export class CampaignController {
 
     this.ui.printTitle(`${this.selectedTeam.name} - Temporada ${this.season} | Rodada ${this.round}`);
     this.ui.print(`Técnico: ${this.coachName}`);
-    this.ui.print(`Saldo: R$ ${this.selectedTeam.economia.saldo.toLocaleString("pt-BR")}`);
+    this.ui.print(`Saldo: R$ ${this.selectedTeam.economy.balance.toLocaleString("pt-BR")}`);
     this.ui.print(`Ataque: ${this.selectedTeam.attackOverall} | Defesa: ${this.selectedTeam.defenseOverall}`);
 
     const userStanding = this.standings.get(this.selectedTeam.name);
@@ -312,7 +312,7 @@ export class CampaignController {
     this.ui.printTitle(`INFORMAÇÕES - ${this.selectedTeam.name}`);
 
     this.ui.print(`\nECONOMIA:`);
-    this.ui.print(`   Saldo: R$ ${this.selectedTeam.economia.saldo.toLocaleString("pt-BR")}`);
+    this.ui.print(`   Saldo: R$ ${this.selectedTeam.economy.balance.toLocaleString("pt-BR")}`);
 
     this.ui.print(`\nELENCO:`);
     this.ui.print(`   Total de Jogadores: ${this.selectedTeam.players.length}`);

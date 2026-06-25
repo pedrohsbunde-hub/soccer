@@ -1,13 +1,6 @@
-import { Util } from "../util/PlayersInfos";
+import { PlayerGenerator } from "../util/PlayerGenerator";
 import { Person } from "./Person";
-
-export enum Position {
-  GOL = "GOL",
-  DEF = "DEF",
-  MEI = "MEI",
-  ATA = "ATA",
-  COACH = "COACH"
-}
+import { Position } from "./Position";
 
 export class Player extends Person {
   constructor(
@@ -20,12 +13,12 @@ export class Player extends Person {
     stamina?: number
   ) {
     super(
-      name ?? Util.getNome(),
-      age ?? Util.getAge(),
-      number ?? Util.getNumber(),
-      overall ?? Util.getOverall(),
-      transfer ?? Util.getTransfer(),
-      position ?? Util.getPosition(),
+      name ?? PlayerGenerator.generateName(),
+      age ?? PlayerGenerator.generateAge(),
+      number ?? PlayerGenerator.generateNumber(),
+      overall ?? PlayerGenerator.generateOverall(),
+      transfer ?? PlayerGenerator.generateTransfer(),
+      position ?? PlayerGenerator.generatePosition(),
       stamina ?? 100
     );
   }

@@ -156,11 +156,11 @@ export class MatchController {
     const cost = this.getTrainingCost(team);
 
     // CQS: Verificar saldo antes de debitar
-    if (team.economia.saldo < cost) {
+    if (team.economy.balance < cost) {
       return { invested: 0, averageIncreasePercent: 0 };
     }
 
-    team.economia.debitar(cost);
+    team.economy.debit(cost);
 
     let totalIncrease = 0;
     let trainedCount = 0;
@@ -185,7 +185,7 @@ export class MatchController {
 
   public applyPostMatchEconomy(homeTeam: Team, outcome: MatchOutcome): number {
     const bonus = this.getResultBonus(outcome);
-    homeTeam.economia.creditar(bonus);
+    homeTeam.economy.credit(bonus);
     return bonus;
   }
 

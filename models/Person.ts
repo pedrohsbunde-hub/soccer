@@ -1,12 +1,12 @@
-import { Position } from "./Player";
+import { Position } from "./Position";
 
 export abstract class Person {
   constructor(
     protected _name: string = "",
     protected _age: number = 0,
-    protected _Number: number = 0,
+    protected _number: number = 0,
     protected _overall: number = 0,
-    protected _Transfer: number = 0,
+    protected _transfer: number = 0,
     protected _position: string = "",
     protected _stamina: number = 100
   ) {}
@@ -42,25 +42,25 @@ export abstract class Person {
   }
 
   public get transfer(): number {
-    return this._Transfer;
+    return this._transfer;
   }
 
   public set transfer(value: number) {
     if (value < 0) {
       throw new Error("Valor de transferência não pode ser negativo.");
     }
-    this._Transfer = value;
+    this._transfer = value;
   }
 
-  public get Number(): number {
-    return this._Number;
+  public get number(): number {
+    return this._number;
   }
 
-  public set Number(value: number) {
+  public set number(value: number) {
     if (value < 1 || value > 99) {
       throw new Error("Número da camisa deve estar entre 1 e 99.");
     }
-    this._Number = value;
+    this._number = value;
   }
 
   public get age(): number {

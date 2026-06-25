@@ -1,5 +1,6 @@
-import { Player, Position } from "../models/Player";
-import { Util } from "../util/PlayersInfos";
+import { Player } from "../models/Player";
+import { Position } from "../models/Position";
+import { PlayerGenerator } from "../util/PlayerGenerator";
 
 export function generateTeamRoster(teamName: string): Player[] {
   const roster: Player[] = [];
@@ -8,12 +9,12 @@ export function generateTeamRoster(teamName: string): Player[] {
   for (let i = 0; i < 2; i++) {
     roster.push(
       new Player(
-        Util.getNome(),
+        PlayerGenerator.generateName(),
         Position.GOL,
-        Util.getOverall(),
-        Util.getTransfer(),
-        Util.getAge(),
-        Util.getNumber(),
+        PlayerGenerator.generateOverall(),
+        PlayerGenerator.generateTransfer(),
+        PlayerGenerator.generateAge(),
+        PlayerGenerator.generateNumber(),
         100
       )
     );
@@ -23,12 +24,12 @@ export function generateTeamRoster(teamName: string): Player[] {
   for (let i = 0; i < 6; i++) {
     roster.push(
       new Player(
-        Util.getNome(),
+        PlayerGenerator.generateName(),
         Position.DEF,
-        Util.getOverall(),
-        Util.getTransfer(),
-        Util.getAge(),
-        Util.getNumber(),
+        PlayerGenerator.generateOverall(),
+        PlayerGenerator.generateTransfer(),
+        PlayerGenerator.generateAge(),
+        PlayerGenerator.generateNumber(),
         100
       )
     );
@@ -38,12 +39,12 @@ export function generateTeamRoster(teamName: string): Player[] {
   for (let i = 0; i < 6; i++) {
     roster.push(
       new Player(
-        Util.getNome(),
+        PlayerGenerator.generateName(),
         Position.MEI,
-        Util.getOverall(),
-        Util.getTransfer(),
-        Util.getAge(),
-        Util.getNumber(),
+        PlayerGenerator.generateOverall(),
+        PlayerGenerator.generateTransfer(),
+        PlayerGenerator.generateAge(),
+        PlayerGenerator.generateNumber(),
         100
       )
     );
@@ -53,12 +54,12 @@ export function generateTeamRoster(teamName: string): Player[] {
   for (let i = 0; i < 6; i++) {
     roster.push(
       new Player(
-        Util.getNome(),
+        PlayerGenerator.generateName(),
         Position.ATA,
-        Util.getOverall(),
-        Util.getTransfer(),
-        Util.getAge(),
-        Util.getNumber(),
+        PlayerGenerator.generateOverall(),
+        PlayerGenerator.generateTransfer(),
+        PlayerGenerator.generateAge(),
+        PlayerGenerator.generateNumber(),
         100
       )
     );

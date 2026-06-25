@@ -1,7 +1,8 @@
 import { MatchController } from "./MatchController";
 import { Team } from "../models/Team";
-import { Player, Position } from "../models/Player";
-import { Economia } from "../models/Economia";
+import { Player } from "../models/Player";
+import { Position } from "../models/Position";
+import { Economy } from "../models/Economy";
 import { MatchLineup } from "./LineupController";
 
 describe("MatchController Class (Game Engine)", () => {
@@ -33,7 +34,7 @@ describe("MatchController Class (Game Engine)", () => {
     return new Team(
       name,
       players,
-      new Economia(initialBalance)
+      new Economy(initialBalance)
     );
   }
 
@@ -92,7 +93,7 @@ describe("MatchController Class (Game Engine)", () => {
     // Assert
     expect(trainingResult.invested).toBe(MatchController.TRAINING_COST);
     expect(trainingResult.averageIncreasePercent).toBeGreaterThan(0);
-    expect(team.economia.saldo).toBe(100000 - MatchController.TRAINING_COST);
+    expect(team.economy.balance).toBe(100000 - MatchController.TRAINING_COST);
 
     // Jogadores treinados devem ter perdido stamina
     expect(team.players[0].stamina).toBe(85); // 100 - 15
@@ -110,7 +111,7 @@ describe("MatchController Class (Game Engine)", () => {
     // Assert
     expect(trainingResult.invested).toBe(0);
     expect(trainingResult.averageIncreasePercent).toBe(0);
-    expect(team.economia.saldo).toBe(1000);
+    expect(team.economy.balance).toBe(1000);
     expect(team.players[0].stamina).toBe(100); // Nenhuma stamina alterada
   });
 

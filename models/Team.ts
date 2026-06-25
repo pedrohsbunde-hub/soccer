@@ -1,6 +1,6 @@
 import { Player } from "./Player";
-import { Economia } from "./Economia";
-import { Position } from "./Player";
+import { Economy } from "./Economy";
+import { Position } from "./Position";
 
 export class Team {
   private _attackOverall: number = 0;
@@ -9,7 +9,7 @@ export class Team {
   constructor(
     private _name: string,
     private _players: Player[],
-    private _economia: Economia
+    private _economy: Economy
   ) {
     if (_name.trim().length === 0) {
       throw new Error("Nome do time não pode ser vazio.");
@@ -37,12 +37,12 @@ export class Team {
     this.recalculateOveralls();
   }
 
-  public get economia(): Economia {
-    return this._economia;
+  public get economy(): Economy {
+    return this._economy;
   }
 
-  public set economia(value: Economia) {
-    this._economia = value;
+  public set economy(value: Economy) {
+    this._economy = value;
   }
 
   public get attackOverall(): number {

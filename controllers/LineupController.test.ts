@@ -1,7 +1,8 @@
 import { LineupController } from "./LineupController";
 import { Team } from "../models/Team";
-import { Player, Position } from "../models/Player";
-import { Economia } from "../models/Economia";
+import { Player } from "../models/Player";
+import { Position } from "../models/Position";
+import { Economy } from "../models/Economy";
 import { UIController } from "./UIController";
 
 describe("LineupController Class", () => {
@@ -38,7 +39,7 @@ describe("LineupController Class", () => {
       players.push(new Player(`${name} A${i}`, Position.ATA, 35, 5000, 25, i + 13, 100));
     }
 
-    return new Team(name, players, new Economia(10000));
+    return new Team(name, players, new Economy(10000));
   }
 
   test("deve escolher escalacao do NPC aleatoriamente com sucesso", () => {
@@ -97,7 +98,7 @@ describe("LineupController Class", () => {
 
   test("deve estourar erro se nao houver jogadores suficientes na posicao", async () => {
     const players = [new Player("User D1", Position.DEF, 35, 5000, 25, 3, 100)];
-    const brokenTeam = new Team("Broken Team", players, new Economia(10000));
+    const brokenTeam = new Team("Broken Team", players, new Economy(10000));
 
     mockUi.menu.mockResolvedValue(1);
 

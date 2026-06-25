@@ -1,8 +1,9 @@
 import * as fs from "fs/promises";
 import * as path from "path";
 import { Team } from "../models/Team";
-import { Player, Position } from "../models/Player";
-import { Economia } from "../models/Economia";
+import { Player } from "../models/Player";
+import { Position } from "../models/Position";
+import { Economy } from "../models/Economy";
 
 interface SavedPlayer {
   name: string;
@@ -17,8 +18,8 @@ interface SavedPlayer {
 interface SavedTeam {
   name: string;
   players: SavedPlayer[];
-  economia: {
-    saldo: number;
+  economy: {
+    balance: number;
   };
 }
 
@@ -60,11 +61,11 @@ export class CampaignSaveService {
         overall: player.overall,
         transfer: player.transfer,
         age: player.age,
-        number: player.Number,
+        number: player.number,
         stamina: player.stamina
       })),
-      economia: {
-        saldo: team.economia.saldo
+      economy: {
+        balance: team.economy.balance
       }
     }));
   }
@@ -105,7 +106,7 @@ export class CampaignSaveService {
         )
       );
 
-      target.economia = new Economia(savedTeam.economia.saldo);
+      target.economy = new Economy(savedTeam.economy.balance);
       target.recalculateOveralls();
     }
   }

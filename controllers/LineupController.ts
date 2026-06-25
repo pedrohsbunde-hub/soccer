@@ -1,4 +1,5 @@
-import { Player, Position } from "../models/Player";
+import { Player } from "../models/Player";
+import { Position } from "../models/Position";
 import { Team } from "../models/Team";
 import { UIController } from "./UIController";
 

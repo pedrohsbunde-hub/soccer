@@ -4,8 +4,9 @@ import { CampaignSaveService } from "../services/CampaignSaveService";
 import { LineupController } from "./LineupController";
 import { MatchController } from "./MatchController";
 import { Team } from "../models/Team";
-import { Player, Position } from "../models/Player";
-import { Economia } from "../models/Economia";
+import { Player } from "../models/Player";
+import { Position } from "../models/Position";
+import { Economy } from "../models/Economy";
 
 jest.mock("./UIController");
 jest.mock("../services/CampaignSaveService");
@@ -23,7 +24,7 @@ describe("CampaignController Class", () => {
       new Player(`${name} G1`, Position.GOL, 35, 5000, 25, 1, 100),
       new Player(`${name} A1`, Position.ATA, 35, 5000, 25, 2, 100),
     ];
-    return new Team(name, players, new Economia(100000));
+    return new Team(name, players, new Economy(100000));
   }
 
   beforeEach(() => {
@@ -61,7 +62,6 @@ describe("CampaignController Class", () => {
     (RealLineupController as jest.Mock).mockImplementation(() => mockLineupController);
     (RealMatchController as jest.Mock).mockImplementation(() => mockMatchController);
 
-    // Default return values for MatchController mock methods to avoid undefined exceptions
     mockMatchController.getTrainingCost.mockReturnValue(2000);
     mockMatchController.applyPostMatchEconomy.mockReturnValue(1000);
     mockMatchController.applyOverallVariationByOutcome.mockReturnValue(0);
@@ -89,12 +89,12 @@ describe("CampaignController Class", () => {
     mockUi.menu.mockImplementation(async (title: string, options?: string[]) => {
       if (title === "MENU CAMPANHA") {
         menuCallCount++;
-        if (menuCallCount === 1) return 1; // Ver elenco
-        if (menuCallCount === 2) return 4; // Informações do time
-        return 5; // Salvar e Sair
+        if (menuCallCount === 1) return 1;
+        if (menuCallCount === 2) return 4;
+        return 5;
       }
       if (title === "") {
-        return 2; // Sair sem salvar
+        return 2;
       }
       return 1;
     });
